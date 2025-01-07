@@ -1,0 +1,54 @@
+<div class="min-h-screen bg-green-900 text-white flex flex-col items-center">
+    <header class="bg-green-800 p-4 w-full text-center shadow-md">
+      <h1 class="text-3xl font-bold text-yellow-500">Roulette</h1>
+      <p class="mt-2">Balance: ₹{{ balance }}</p>
+    </header>
+  
+    <main class="flex-1 flex flex-col items-center p-4">
+      <!-- Betting Chips -->
+      <div class="flex space-x-4 mb-6">
+        <button
+          *ngFor="let chip of chips"
+          (click)="selectChip(chip)"
+          class="p-4 rounded-full font-bold text-center bg-gray-700 hover:bg-gray-600 transition"
+          [class.ring]="selectedChip === chip"
+          [class.ring-yellow-300]="selectedChip === chip"
+        >
+          ₹{{ chip }}
+        </button>
+      </div>
+  
+      <!-- Roulette Board -->
+      <div class="grid grid-cols-12 gap-1">
+        <div
+          *ngFor="let number of numbers"
+          (click)="placeBet(number.value)"
+          class="w-12 h-12 flex items-center justify-center font-bold cursor-pointer"
+          [ngClass]="{
+            'bg-green-500': number?.color === 'green',
+            'bg-red-500': number?.color === 'red',
+            'bg-black text-white': number?.color === 'black',
+            'ring-4 ring-yellow-300': bets[number.value]
+          }"
+        >
+          {{ number?.value }}
+        </div>
+      </div>
+  
+      <!-- Spin Button -->
+      <button
+        (click)="spinWheel()"
+        class="mt-6 px-6 py-3 bg-yellow-500 text-lg font-bold rounded-lg hover:bg-yellow-600 transition"
+        [disabled]="spinning"
+      >
+        {{ spinning ? 'Spinning...' : 'Spin the Wheel' }}
+      </button>
+  
+      <!-- Result Message -->
+      <div *ngIf="message" class="mt-6 text-center">
+        <h2 class="text-2xl">{{ message }}</h2>
+        <p *ngIf="winningNumber !== 0">Winning Number: {{ winningNumber }}</p>
+      </div>
+    </main>
+  </div>
+  

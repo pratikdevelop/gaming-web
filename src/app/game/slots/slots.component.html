@@ -1,0 +1,40 @@
+<div class="min-h-screen bg-gray-900 text-white flex flex-col items-center">
+    <header class="p-6 bg-gray-800 shadow-md w-full text-center">
+      <h1 class="text-4xl font-bold text-yellow-400">Slots</h1>
+    </header>
+  
+    <main class="flex-1 flex flex-col items-center justify-center space-y-8">
+      <!-- Bet Options -->
+      <div class="flex space-x-4 mb-6">
+        <button 
+          *ngFor="let amount of [50, 100, 500]" 
+          (click)="setBet(amount)" 
+          class="px-4 py-2 bg-indigo-500 text-lg font-bold rounded-lg hover:bg-indigo-600">
+          Bet ₹{{ amount }}
+        </button>
+      </div>
+  
+      <!-- Slots Display -->
+      <div class="flex items-center space-x-4">
+        <div 
+          *ngFor="let reel of reels" 
+          class="w-24 h-24 bg-gray-800 border-4 border-yellow-500 flex items-center justify-center text-4xl font-bold rounded-lg">
+          {{ spinning ? '🎰' : reel }}
+        </div>
+      </div>
+  
+      <!-- Spin Button -->
+      <button 
+        (click)="spinReels()" 
+        class="px-6 py-3 bg-yellow-500 text-lg font-bold rounded-lg hover:bg-yellow-600 transition mt-4"
+        [disabled]="spinning">
+        Spin
+      </button>
+  
+      <!-- Game Result -->
+      <div *ngIf="gameResult" class="text-center mt-6">
+        <h2 class="text-2xl">{{ gameResult }}</h2>
+      </div>
+    </main>
+  </div>
+  
